@@ -70,6 +70,10 @@ def executar_cenario(nome_cenario, custo, oferta, demanda, max_iter_simplex, max
         animar_evolucao_alocacao(registro_tabu, f"{nome_cenario}_Tabu")
         print("Animações de alocação geradas com sucesso")
 
+        # 4) Gráfico top top, a lenda
+        grafico_top_top(nome_cenario, historico_custo_simp, historico_custo_tabu, custo_simp, custo_tabu, total_time_simp, total_time_tabu)
+
+
     except Exception as e:
         print(f"Erro ao gerar visualizações: {str(e)}")
 
