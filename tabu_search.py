@@ -1,4 +1,3 @@
-# tabu_search.py
 import numpy as np
 import random
 import time
@@ -63,7 +62,7 @@ def gerar_vizinhos(alocacao, num_swaps=3, num_vizinhos=10):
     return vizinhos
 
 def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
-    tempo_inicial = time.process_time_ns()
+    tempo_inicial = time.perf_counter_ns()  # Medição em nanossegundos
 
     total_oferta = oferta.sum()
     total_demanda = demanda.sum()
@@ -86,7 +85,7 @@ def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
 
     registro_iteracoes = []
     lista_tabu = []
-    registro_iteracoes.append((0, melhor_custo, solucao_atual.copy(), tempo_inicial - time.process_time_ns()))
+    registro_iteracoes.append((0, melhor_custo, solucao_atual.copy(), 0))
 
     for iteracao in range(1,max_iter):
         vizinhos = gerar_vizinhos(solucao_atual)
@@ -120,7 +119,8 @@ def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
         if len(lista_tabu) > tamanho_tabu:
             lista_tabu.pop(0)
 
-        elapsed = (time.process_time_ns() - tempo_inicial) / 1_000_000
+        # Converter nanossegundos para microssegundos (divisão por 1000)
+        elapsed = (time.perf_counter_ns() - tempo_inicial) / 1000.0
         registro_iteracoes.append((iteracao, melhor_custo_vizinho, solucao_atual.copy(), elapsed))
 
     if total_oferta > total_demanda:
