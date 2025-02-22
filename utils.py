@@ -278,8 +278,8 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     max_iter = max(len(historico_custo_simplex), len(historico_custo_tabu))
 
     # Inicializa linhas vazias que serão atualizadas durante a animação
-    (line_simp_cost,) = ax1.plot([], [], marker='o', color='blue', label='Simplex')
     (line_tabu_cost,) = ax1.plot([], [], marker='o', color='orange', label='Tabu')
+    (line_simp_cost,) = ax1.plot([], [], marker='o', color='blue', label='Simplex')
 
     # Adiciona legendas aos gráficos
     ax1.legend()
