@@ -271,13 +271,21 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
                  color=["blue", "orange"])
     ax_custos.set_title(f"Custos Finais\nDif.: {abs(custo_simplex - custo_tabu):.2f}")
     ax_custos.set_ylabel("Custo")
+    # Valor de cada barra
+    for i, value in enumerate([custo_simplex, custo_tabu]):
+        ax_custos.text(i, value + 20, str(value), ha='center', va='top', fontsize=12, color='black')
+
+
 
     # Plot dos tempos
     ax_tempos.bar(["Simplex", "Tabu"], [tempo_simplex, tempo_tabu], 
                  color=["blue", "orange"])
     ax_tempos.set_title(f"Tempo de Execução (µs)\nDif.: {abs(tempo_simplex - tempo_tabu):.2f}")
     ax_tempos.set_ylabel("Tempo (µs)")
-
+    # Valor de cada barra
+    for i, value in enumerate([tempo_simplex, tempo_tabu]):
+        ax_custos.text(i, value + 20, str(value), ha='center', va='top', fontsize=12, color='black')
+    
     # Ajustar layout
     plt.suptitle(f"Análise Comparativa - {nome_cenario}", fontsize=14)
     plt.tight_layout()
