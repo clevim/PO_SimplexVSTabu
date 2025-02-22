@@ -257,8 +257,9 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
         print("Histórico de custos vazio.")
         return
 
-    fig, axes = plt.subplots(2, 2, figsize=(12, 12))
     # Placing the plots in the plane
+    plt.figure(figsize=(12, 12))
+    
     ax1 = plt.subplot2grid((4, 4), (0, 0), rowspan=2, colspan=4)
     ax2 = plt.subplot2grid((4, 4), (2, 0), rowspan=2, colspan=2)
     ax3 = plt.subplot2grid((4, 4), (2, 2), rowspan=2, colspan=2)
@@ -267,7 +268,6 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     # # Cria uma figura com 2 subgráficos: um para os custos e outro para os tempos
     # fig, axes = plt.subplots(2, 2, figsize=(12, 12))
     # ax1, ax2, ax3, ax4 = axes.flatten()
-
     ax1.set_title(f"Evolução dos Custos - {nome_cenario}")
     ax1.set_xlabel("Iteração")
     ax1.set_ylabel("Custo")
@@ -306,7 +306,6 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     ax3.set_ylabel("Tempo (ms)")
     ax3.set_title(f"Tempo de Execução (ms)\nDiferença: {diff_time:.2f} ms")
 
-
     # Define o caminho para salvar a imagem e cria o diretório, se necessário
     save_path = "outputs"
     os.makedirs(save_path, exist_ok=True)
@@ -314,7 +313,6 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
 
     # Packing all the plots and displaying them
     plt.tight_layout()
-
     # Salva a figura em formato PNG
     plt.savefig(image_path)
     print(f"Gráfico top top salvo em: {image_path}")
