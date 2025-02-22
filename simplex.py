@@ -196,7 +196,7 @@ def transporte_simplex(custo, oferta, demanda, max_iter=100):
       - iter_log: Registro das iterações (número da iteração, custo, alocação, tempo decorrido).
     """
     
-    tempo_inicial = time.perf_counter_ns()
+    tempo_inicial = time.process_time_ns()
 
     total_oferta = oferta.sum()
     total_demanda = demanda.sum()
@@ -220,7 +220,7 @@ def transporte_simplex(custo, oferta, demanda, max_iter=100):
     alocacao = solucao_inicial_menor_custo(matriz_custo, vetor_oferta, vetor_demanda)
 
     custo_inicial = np.sum(alocacao * matriz_custo)
-    iter_log = [(0, custo_inicial, alocacao.copy(), 0.0)]
+    iter_log = [(0, custo_inicial, alocacao.copy(), tempo_inicial - time.process_time_ns())]
 
     for iteracao in range(max_iter):
         # Calcula os potenciais u e v para a solução atual
@@ -229,9 +229,9 @@ def transporte_simplex(custo, oferta, demanda, max_iter=100):
         entrada, delta = encontrar_variavel_entrada(matriz_custo, alocacao, u, v)
 
         custo_atual = np.sum(alocacao * matriz_custo)
-        elapsed = time.perf_counter_ns() - tempo_inicial
+        elapsed = time.process_time_ns() - tempo_inicial
 
-        print(f"T: {tempo_inicial} ---- Tm: {time.perf_counter_ns()}")
+        print(f"T: {tempo_inicial} ---- Tm: {time.process_time_ns()}")
         # print(f"T: {elapsed} ---- Tm: {elapsed * 1000000000000000000000000000000}")
 
         elapsed = elapsed / 1000000 #time control # Converte o tempo para milissegundos

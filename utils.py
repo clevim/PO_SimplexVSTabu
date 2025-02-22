@@ -151,7 +151,7 @@ def animar_iteracoes_cenario(historico_custo_simplex, historico_tempo_simplex,
     historico_tempo_tabu_ms = [t * 1000 for t in historico_tempo_tabu]
 
     # Cria uma figura com 2 subgráficos: um para os custos e outro para os tempos
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(10, 10))
 
     # Subgráfico para a evolução dos custos
     ax1 = plt.subplot(2, 1, 1)

@@ -75,47 +75,77 @@ def executar_cenario(nome_cenario, custo, oferta, demanda, max_iter_simplex, max
 
 def main():
     
-    # Cenário 1: Desbalanceado (oferta e demanda diferentes)
-    custo1 = np.array([
-        [8, 6, 10, 9],
-        [9, 12, 13, 7],
-        [14, 9, 16, 5]
-    ], dtype=float)
-    oferta1 = np.array([20, 30, 25], dtype=float)
-    demanda1 = np.array([10, 25, 25, 10], dtype=float)
-    executar_cenario("Desbalanceado", custo1, oferta1, demanda1, max_iter_simplex=50, max_iter_tabu=50)
+    # # Cenário 1: Desbalanceado (oferta e demanda diferentes)
+    # custo1 = np.array([
+    #     [8, 6, 10, 9],
+    #     [9, 12, 13, 7],
+    #     [14, 9, 16, 5]
+    # ], dtype=float)
+    # oferta1 = np.array([20, 30, 25], dtype=float)
+    # demanda1 = np.array([10, 25, 25, 10], dtype=float)
+    # executar_cenario("Desbalanceado", custo1, oferta1, demanda1, max_iter_simplex=50, max_iter_tabu=50)
 
-    # Cenário 2: Degenerado (situação com custos uniformes)
-    custo2 = np.array([
-        [5, 5, 5],
-        [5, 5, 5],
-        [5, 5, 5]
-    ], dtype=float)
-    oferta2 = np.array([30, 20, 10], dtype=float)
-    demanda2 = np.array([30, 20, 10], dtype=float)
-    executar_cenario("Degenerado", custo2, oferta2, demanda2, max_iter_simplex=50, max_iter_tabu=50)
+    # # Cenário 2: Degenerado (situação com custos uniformes)
+    # custo2 = np.array([
+    #     [5, 5, 5],
+    #     [5, 5, 5],
+    #     [5, 5, 5]
+    # ], dtype=float)
+    # oferta2 = np.array([30, 20, 10], dtype=float)
+    # demanda2 = np.array([30, 20, 10], dtype=float)
+    # executar_cenario("Degenerado", custo2, oferta2, demanda2, max_iter_simplex=50, max_iter_tabu=50)
 
-    # Cenário 3: Melhor desempenho da Busca Tabu
-    custo3 = np.array([
-        [20, 25, 15, 10, 30, 35],
-        [10, 30, 20, 25, 15, 20],
-        [25, 15, 30, 20, 25, 30],
-        [15, 20, 25, 30, 10, 15],
-        [30, 25, 20, 15, 35, 25]
-    ], dtype=float)
-    oferta3 = np.array([50, 60, 50, 40, 45], dtype=float)
-    demanda3 = np.array([40, 45, 55, 35, 35, 35], dtype=float)
-    executar_cenario("TabuMelhor", custo3, oferta3, demanda3, max_iter_simplex=10, max_iter_tabu=100)
+    # # Cenário 3: Melhor desempenho da Busca Tabu
+    # custo3 = np.array([
+    #     [20, 25, 15, 10, 30, 35],
+    #     [10, 30, 20, 25, 15, 20],
+    #     [25, 15, 30, 20, 25, 30],
+    #     [15, 20, 25, 30, 10, 15],
+    #     [30, 25, 20, 15, 35, 25]
+    # ], dtype=float)
+    # oferta3 = np.array([50, 60, 50, 40, 45], dtype=float)
+    # demanda3 = np.array([40, 45, 55, 35, 35, 35], dtype=float)
+    # executar_cenario("TabuMelhor", custo3, oferta3, demanda3, max_iter_simplex=100, max_iter_tabu=100)
 
-    # Cenário 4: Melhor desempenho do método Simplex
-    custo4 = np.array([
-        [2,  10, 15, 20],
-        [4,   8, 16, 18],
-        [6,  12, 14, 10]
+    # # Cenário 4: Melhor desempenho do método Simplex
+    # custo4 = np.array([
+    #     [2,  10, 15, 20],
+    #     [4,   8, 16, 18],
+    #     [6,  12, 14, 10]
+    # ], dtype=float)
+    # oferta4 = np.array([40, 35, 25], dtype=float)
+    # demanda4 = np.array([30, 25, 25, 20], dtype=float)
+    # executar_cenario("SimplexMelhor", custo4, oferta4, demanda4, max_iter_simplex=50, max_iter_tabu=50)
+    
+    # Cenário 5: Problema gigantesco
+    custo5 = np.array([
+    [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+    [15, 25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205],
+    [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210],
+    [25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215],
+    [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
+    [35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225],
+    [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230],
+    [45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235],
+    [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240],
+    [55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245],
+    [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250],
+    [65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245, 255],
+    [70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260],
+    [75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245, 255, 265],
+    [80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270],
+    [85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245, 255, 265, 275],
+    [90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280],
+    [95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245, 255, 265, 275, 285],
+    [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290],
+    [105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245, 255, 265, 275, 285, 295]
     ], dtype=float)
-    oferta4 = np.array([40, 35, 25], dtype=float)
-    demanda4 = np.array([30, 25, 25, 20], dtype=float)
-    executar_cenario("SimplexMelhor", custo4, oferta4, demanda4, max_iter_simplex=50, max_iter_tabu=50)
+    oferta5 = np.array([50, 60, 70, 80, 90, 200, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240], dtype=float)
+    demanda5 = np.array([55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175, 185, 195, 205, 215, 225, 235, 245], dtype=float)
+    print(oferta5.sum())
+    print(demanda5.sum())
+    # assert np.isclose(oferta5.sum(), demanda5.sum()), "Oferta e demanda não estão balanceadas!"
+    executar_cenario("Simplex20x20_Deterministico", custo5, oferta5, demanda5, max_iter_simplex=100, max_iter_tabu=100)
 
 if __name__ == "__main__":
     main()
