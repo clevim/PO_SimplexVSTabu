@@ -64,6 +64,7 @@ def gerar_vizinhos(alocacao, num_swaps=3, num_vizinhos=10):
 def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
     tempo_inicial = time.perf_counter_ns()  # Medição em nanossegundos
 
+
     total_oferta = oferta.sum()
     total_demanda = demanda.sum()
     matriz_custo = custo.copy()
@@ -82,6 +83,9 @@ def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
     solucao_atual = solucao_inicial_menor_custo(matriz_custo, vetor_oferta, vetor_demanda)
     melhor_solucao = solucao_atual.copy()
     melhor_custo = calcular_custo_total(matriz_custo, melhor_solucao)
+    
+    melhor_global_sol = melhor_solucao.copy()
+    melhor_global_custo = calcular_custo_total(matriz_custo, melhor_global_sol) 
 
     registro_iteracoes = []
     lista_tabu = []
@@ -123,10 +127,15 @@ def busca_tabu_transporte(custo, oferta, demanda, max_iter=100, tamanho_tabu=5):
         elapsed = (time.perf_counter_ns() - tempo_inicial) / 1000.0
         registro_iteracoes.append((iteracao, melhor_custo_vizinho, solucao_atual.copy(), elapsed))
 
+        if(melhor_custo < melhor_global_custo):
+            melhor_global_sol = melhor_solucao.copy()
+            melhor_global_custo = melhor_custo
+
     if total_oferta > total_demanda:
         melhor_solucao = melhor_solucao[:, :-1]
     elif total_demanda > total_oferta:
         melhor_solucao = melhor_solucao[:-1, :]
 
     melhor_custo = calcular_custo_total(custo, melhor_solucao)
-    return melhor_solucao, melhor_custo, registro_iteracoes
+
+    return melhor_global_sol, melhor_global_custo, registro_iteracoes

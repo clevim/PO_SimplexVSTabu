@@ -88,7 +88,7 @@ def main():
     ], dtype=float)
     oferta1 = np.array([20, 30, 25], dtype=float)
     demanda1 = np.array([10, 25, 25, 10], dtype=float)
-    executar_cenario("Desbalanceado", custo1, oferta1, demanda1, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
+    executar_cenario("Cenário 1", custo1, oferta1, demanda1, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
 
     # # Cenário 2: Degenerado (situação com custos uniformes)
     custo2 = np.array([
@@ -98,7 +98,7 @@ def main():
     ], dtype=float)
     oferta2 = np.array([30, 20, 10], dtype=float)
     demanda2 = np.array([30, 20, 10], dtype=float)
-    executar_cenario("Degenerado", custo2, oferta2, demanda2, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
+    executar_cenario("Cenário 2", custo2, oferta2, demanda2, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
 
     # # Cenário 3: Melhor desempenho da Busca Tabu
     custo3 = np.array([
@@ -110,7 +110,7 @@ def main():
     ], dtype=float)
     oferta3 = np.array([50, 60, 50, 40, 45], dtype=float)
     demanda3 = np.array([40, 45, 55, 35, 35, 35], dtype=float)
-    executar_cenario("TabuMelhor", custo3, oferta3, demanda3, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
+    executar_cenario("Cenário 3", custo3, oferta3, demanda3, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
 
     # # Cenário 4: Melhor desempenho do método Simplex
     custo4 = np.array([
@@ -120,7 +120,7 @@ def main():
     ], dtype=float)
     oferta4 = np.array([40, 35, 25], dtype=float)
     demanda4 = np.array([30, 25, 25, 20], dtype=float)
-    executar_cenario("SimplexMelhor", custo4, oferta4, demanda4, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
+    executar_cenario("Cenário 4", custo4, oferta4, demanda4, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
     
     # Cenário 5: Problema gigantesco
     custo5 = np.array([
@@ -150,7 +150,7 @@ def main():
     print(oferta5.sum())
     print(demanda5.sum())
     # assert np.isclose(oferta5.sum(), demanda5.sum()), "Oferta e demanda não estão balanceadas!"
-    executar_cenario("Simplex20x20_Deterministico", custo5, oferta5, demanda5, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
+    executar_cenario("Cenário 5", custo5, oferta5, demanda5, max_iter_simplex=max_iters, max_iter_tabu=max_iters)
 
 if __name__ == "__main__":
     main()

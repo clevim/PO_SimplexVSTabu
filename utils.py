@@ -211,15 +211,15 @@ def animar_iteracoes_cenario(historico_custo_simplex, historico_tempo_simplex,
         """
         Atualiza os dados das linhas a cada frame (iterações) da animação.
         """
-        if i < len(historico_custo_simplex):
-            line_simp_cost.set_data(range(i+1), historico_custo_simplex[:i+1])
         if i < len(historico_custo_tabu):
             line_tabu_cost.set_data(range(i+1), historico_custo_tabu[:i+1])
+        if i < len(historico_custo_simplex):
+            line_simp_cost.set_data(range(i+1), historico_custo_simplex[:i+1])
 
-        if i < len(historico_tempo_simplex_ms):
-            line_simp_time.set_data(range(i+1), historico_tempo_simplex_ms[:i+1])
         if i < len(historico_tempo_tabu_ms):
             line_tabu_time.set_data(range(i+1), historico_tempo_tabu_ms[:i+1])
+        if i < len(historico_tempo_simplex_ms):
+            line_simp_time.set_data(range(i+1), historico_tempo_simplex_ms[:i+1])
 
         return line_simp_cost, line_tabu_cost, line_simp_time, line_tabu_time
 
@@ -258,8 +258,8 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     ax_tempos = plt.subplot2grid((2, 2), (1, 1))
 
     # Plot da evolução dos custos
-    ax_evolucao.plot(historico_custo_simplex,marker='o', label='Simplex')
     ax_evolucao.plot(historico_custo_tabu, 'orange',marker='o', label='Tabu')
+    ax_evolucao.plot(historico_custo_simplex,marker='o', label='Simplex')
     ax_evolucao.set_title("Evolução dos Custos")
     ax_evolucao.set_xlabel("Iteração")
     ax_evolucao.set_ylabel("Custo")
