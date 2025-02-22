@@ -5,7 +5,7 @@ import numpy as np
 
 from simplex import transporte_simplex
 from tabu_search import busca_tabu_transporte
-from utils import plotar_comparacao, animar_iteracoes_cenario, animar_evolucao_alocacao
+from utils import plotar_comparacao, animar_iteracoes_cenario, animar_evolucao_alocacao, grafico_top_top
 
 def executar_cenario(nome_cenario, custo, oferta, demanda, max_iter_simplex, max_iter_tabu):
     
