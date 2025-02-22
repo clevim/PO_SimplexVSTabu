@@ -258,12 +258,13 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     ax_tempos = plt.subplot2grid((2, 2), (1, 1))
 
     # Plot da evolução dos custos
-    ax_evolucao.plot(historico_custo_simplex, 'b-', label='Simplex')
-    ax_evolucao.plot(historico_custo_tabu, 'orange', label='Tabu')
+    ax_evolucao.plot(historico_custo_simplex,marker='o', label='Simplex')
+    ax_evolucao.plot(historico_custo_tabu, 'orange',marker='o', label='Tabu')
     ax_evolucao.set_title("Evolução dos Custos")
     ax_evolucao.set_xlabel("Iteração")
     ax_evolucao.set_ylabel("Custo")
     ax_evolucao.legend()
+    ax_evolucao.set_xlim(0, 99)
 
     # Plot dos custos finais
     ax_custos.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], 
