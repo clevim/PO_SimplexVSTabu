@@ -234,4 +234,90 @@ def animar_iteracoes_cenario(historico_custo_simplex, historico_tempo_simplex,
 
     plt.close() # Fecha a figura para liberar recursos
     
+def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu, custo_simplex, custo_tabu, tempo_simplex, tempo_tabu):
+    
+    """
+    Gera e salva uma animação (GIF) que mostra a evolução dos custos e do tempo
+    de execução ao longo das iterações para os métodos Simplex e Tabu.
+    
+    Parâmetros:
+      - historico_custo_simplex: Lista com o histórico dos custos do método Simplex.
+      - historico_tempo_simplex: Lista com o histórico dos tempos (em segundos) do método Simplex.
+      - historico_custo_tabu: Lista com o histórico dos custos do método Tabu.
+      - historico_tempo_tabu: Lista com o histórico dos tempos (em segundos) do método Tabu.
+      - nome_cenario: Nome do cenário para identificar o arquivo de saída.
+    """
+    
+    # Converte o tempo de execução de segundos para milissegundos
+    tempo_simplex_ms = tempo_simplex * 1000
+    tempo_tabu_ms = tempo_tabu * 1000
 
+    # Verifica se os históricos de custo estão vazios; se sim, exibe mensagem e encerra a função
+    if not historico_custo_simplex and not historico_custo_tabu:
+        print("Histórico de custos vazio.")
+        return
+
+    fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+    # Placing the plots in the plane
+    ax1 = plt.subplot2grid((4, 4), (0, 0), rowspan=2, colspan=4)
+    ax2 = plt.subplot2grid((4, 4), (2, 0), rowspan=2, colspan=2)
+    ax3 = plt.subplot2grid((4, 4), (2, 2), rowspan=2, colspan=2)
+
+
+    # # Cria uma figura com 2 subgráficos: um para os custos e outro para os tempos
+    # fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+    # ax1, ax2, ax3, ax4 = axes.flatten()
+
+    ax1.set_title(f"Evolução dos Custos - {nome_cenario}")
+    ax1.set_xlabel("Iteração")
+    ax1.set_ylabel("Custo")
+
+    # Cria uma figura com 4 subgráficos (2 linhas x 2 colunas)
+
+    # Determina o número máximo de iterações considerando ambos os históricos
+    max_iter = max(len(historico_custo_simplex), len(historico_custo_tabu))
+
+    # Inicializa linhas vazias que serão atualizadas durante a animação
+    (line_simp_cost,) = ax1.plot([], [], marker='o', color='blue', label='Simplex')
+    (line_tabu_cost,) = ax1.plot([], [], marker='o', color='orange', label='Tabu')
+
+    # Adiciona legendas aos gráficos
+    ax1.legend()
+
+    # Ajusta os limites dos eixos para os custos com base em todos os valores coletados
+    all_costs = historico_custo_simplex + historico_custo_tabu
+    if all_costs:
+        ax1.set_xlim(0, max_iter - 1)
+        ax1.set_ylim(min(all_costs)*0.95, max(all_costs)*1.05)
+
+    # Desenha as linhas no gráfico
+    line_tabu_cost.set_data(range(len(historico_custo_tabu)), historico_custo_tabu)
+    line_simp_cost.set_data(range(len(historico_custo_simplex)), historico_custo_simplex)
+
+    # Primeiro subgráfico: comparação dos custos totais
+    diff_cost = abs(custo_simplex - custo_tabu)
+    ax2.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], color=["blue", "orange"])
+    ax2.set_ylabel("Custo Total")
+    ax2.set_title(f"Comparação de Custos\nDiferença: {diff_cost:.2f}")
+
+    # Segundo subgráfico: comparação dos tempos de execução
+    diff_time = abs(tempo_simplex_ms - tempo_tabu_ms)
+    ax3.bar(["Simplex", "Tabu"], [tempo_simplex_ms, tempo_tabu_ms], color=["blue", "orange"])
+    ax3.set_ylabel("Tempo (ms)")
+    ax3.set_title(f"Tempo de Execução (ms)\nDiferença: {diff_time:.2f} ms")
+
+
+    # Define o caminho para salvar a imagem e cria o diretório, se necessário
+    save_path = "outputs"
+    os.makedirs(save_path, exist_ok=True)
+    image_path = os.path.join(save_path, f"{nome_cenario}_grafico_top_top.png")
+
+    # Packing all the plots and displaying them
+    plt.tight_layout()
+
+    # Salva a figura em formato PNG
+    plt.savefig(image_path)
+    print(f"Gráfico top top salvo em: {image_path}")
+
+    plt.close()  # Fecha a figura para liberar recursos
+    
