@@ -90,9 +90,20 @@ def plotar_comparacao(custo_simplex, custo_tabu, tempo_simplex, tempo_tabu,
 
     # Primeiro subgráfico: comparação dos custos totais
     diff_cost = abs(custo_simplex - custo_tabu)
+    barras_custo = ax1.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], 
+                                color=["blue", "orange"])
+    for barra in barras_custo:
+        height = barra.get_height()
+        ax1.text(barra.get_x() + barra.get_width()/2., height,
+                      f'{height:.2f}',
+                      ha='center', va='bottom')
+    ax1.set_title(f"Custos Finais\nDif.: {abs(custo_simplex - custo_tabu):.2f}")
+    ax1.set_ylabel("Custo")
+    
+    """diff_cost = abs(custo_simplex - custo_tabu)
     ax1.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], color=["blue", "orange"])
     ax1.set_ylabel("Custo Total")
-    ax1.set_title(f"Comparação de Custos\nDiferença: {diff_cost:.2f}")
+    ax1.set_title(f"Comparação de Custos\nDiferença: {diff_cost:.2f}")"""
 
     # Ajusta a escala do gráfico de tempo
     max_tempo = max(tempo_simplex_us, tempo_tabu_us)
@@ -102,13 +113,24 @@ def plotar_comparacao(custo_simplex, custo_tabu, tempo_simplex, tempo_tabu,
     
     # Segundo subgráfico: comparação dos tempos de execução
     diff_time = abs(tempo_simplex_us - tempo_tabu_us)
+    barras_tempo = ax2.bar(["Simplex", "Tabu"], [tempo_simplex_us, tempo_tabu_us], 
+    color=["blue", "orange"])
+    for barra in barras_tempo:
+        height = barra.get_height()
+        ax2.text(barra.get_x() + barra.get_width()/2., height,
+                      f'{height:.2f}',
+                      ha='center', va='bottom')
+    ax2.set_title(f"Tempo de Execução (µs)\nDiferença: {diff_time:.2f} µs")
+    ax2.set_ylabel("Tempo (µs)")
+    
+    """diff_time = abs(tempo_simplex_us - tempo_tabu_us)
     ax2.bar(["Simplex", "Tabu"], [tempo_simplex_us, tempo_tabu_us], color=["blue", "orange"])
     ax2.set_ylabel("Tempo (µs)")
     ax2.set_title(f"Tempo de Execução (µs)\nDiferença: {diff_time:.2f} µs")
     
     # Adiciona os valores exatos sobre as barras com 2 casas decimais
     for i, v in enumerate([tempo_simplex_us, tempo_tabu_us]):
-        ax2.text(i, v + max_tempo * 0.02, f'{v:.2f}', ha='center')
+        ax2.text(i, v + max_tempo * 0.02, f'{v:.2f}', ha='center')"""
 
     # Terceiro subgráfico: heatmap da alocação final do método Simplex
     sns.heatmap(aloc_simp, annot=True, cmap="YlOrRd", cbar=False, ax=ax3, fmt=".1f")
@@ -265,8 +287,19 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     ax_evolucao.set_ylabel("Custo")
     ax_evolucao.legend()
     ax_evolucao.set_xlim(0, 99)
-
-    # Plot dos custos finais
+        # Plot dos custos finais
+    barras_custo = ax_custos.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], 
+                                color=["blue", "orange"])
+    # Adiciona os valores em cima das barras de custo
+    for barra in barras_custo:
+        height = barra.get_height()
+        ax_custos.text(barra.get_x() + barra.get_width()/2., height,
+                      f'{height:.2f}',
+                      ha='center', va='bottom')
+    ax_custos.set_title(f"Custos Finais\nDif.: {abs(custo_simplex - custo_tabu):.2f}")
+    ax_custos.set_ylabel("Custo")
+    
+    """ # Plot dos custos finais
     ax_custos.bar(["Simplex", "Tabu"], [custo_simplex, custo_tabu], 
                  color=["blue", "orange"])
     ax_custos.set_title(f"Custos Finais\nDif.: {abs(custo_simplex - custo_tabu):.2f}")
@@ -278,11 +311,26 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     else:
         height = custo_tabu
     for i, value in enumerate([custo_simplex, custo_tabu]):
-        ax_custos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')
-
-
+        ax_custos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')"""
+    
 
     # Plot dos tempos
+    barras_tempo = ax_tempos.bar(["Simplex", "Tabu"], [tempo_simplex, tempo_tabu], 
+                                color=["blue", "orange"])
+    # Adiciona os valores em cima das barras de tempo
+    for barra in barras_tempo:
+        height = barra.get_height()
+        ax_tempos.text(barra.get_x() + barra.get_width()/2., height,
+                      f'{height:.2f}',
+                      ha='center', va='bottom')
+    ax_tempos.set_title(f"Tempo de Execução (µs)\nDiferença: {abs(tempo_simplex - tempo_tabu):.2f}")
+    ax_tempos.set_ylabel("Tempo (µs)")
+    
+    # Ajustar layout
+    plt.suptitle(f"Análise Comparativa - {nome_cenario}", fontsize=14)
+    plt.tight_layout()
+    
+    """# Plot dos tempos
     ax_tempos.bar(["Simplex", "Tabu"], [tempo_simplex, tempo_tabu], 
                  color=["blue", "orange"])
     ax_tempos.set_title(f"Tempo de Execução (µs)\nDif.: {abs(tempo_simplex - tempo_tabu):.2f}")
@@ -294,11 +342,7 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
     else:
         height = tempo_tabu
     for i, value in enumerate([tempo_simplex, tempo_tabu]):
-        ax_tempos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')
-    
-    # Ajustar layout
-    plt.suptitle(f"Análise Comparativa - {nome_cenario}", fontsize=14)
-    plt.tight_layout()
+        ax_tempos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')"""
 
     # Salvar
     save_path = "outputs"
