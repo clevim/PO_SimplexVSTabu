@@ -271,9 +271,14 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
                  color=["blue", "orange"])
     ax_custos.set_title(f"Custos Finais\nDif.: {abs(custo_simplex - custo_tabu):.2f}")
     ax_custos.set_ylabel("Custo")
+
     # Valor de cada barra
+    if(custo_simplex > custo_tabu):
+        height = custo_simplex
+    else:
+        height = custo_tabu
     for i, value in enumerate([custo_simplex, custo_tabu]):
-        ax_custos.text(i, value + 20, str(value), ha='center', va='top', fontsize=12, color='black')
+        ax_custos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')
 
 
 
@@ -282,9 +287,14 @@ def grafico_top_top(nome_cenario, historico_custo_simplex, historico_custo_tabu,
                  color=["blue", "orange"])
     ax_tempos.set_title(f"Tempo de Execução (µs)\nDif.: {abs(tempo_simplex - tempo_tabu):.2f}")
     ax_tempos.set_ylabel("Tempo (µs)")
+
     # Valor de cada barra
+    if(tempo_simplex > tempo_tabu):
+        height = tempo_simplex
+    else:
+        height = tempo_tabu
     for i, value in enumerate([tempo_simplex, tempo_tabu]):
-        ax_custos.text(i, value + 20, str(value), ha='center', va='top', fontsize=12, color='black')
+        ax_tempos.text(i, value + ((height/100) * 3), str(value), ha='center', va='top', fontsize=12, color='black')
     
     # Ajustar layout
     plt.suptitle(f"Análise Comparativa - {nome_cenario}", fontsize=14)
